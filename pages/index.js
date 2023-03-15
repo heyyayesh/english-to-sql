@@ -69,6 +69,7 @@ export default function Home() {
           className={styles.input}
           style={inter.style}
           placeholder='e.g - Find out the third last character of the name of the student with the 5th highest marks.'
+          spellCheck='false'
         />
 
         <button
@@ -98,6 +99,18 @@ export default function Home() {
             Clear
           </button>
         </div>
+
+        <p className={styles.instructions}>
+          Table schema can also be provided in the description for an even
+          accurate query. <br />
+          e.g. The table is Employee ( <br />
+          id NUMBER(5), <br />
+          name VARCHAR2(20), <br />
+          desg VARCHAR2(20), <br />
+          salary NUMBER(8), <br />
+          doj DATE ); <br />
+          Find out all the employees who joined before this year.
+        </p>
 
         <a
           className={styles.star}
