@@ -6,6 +6,7 @@ import Image from 'next/image';
 import linkedinIcon from '../public/linkedin.svg';
 import githubIcon from '../public/github.svg';
 import twitterIcon from '../public/twitter.svg';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 
 const inter = Inter({ subsets: ['latin'], weight: ['400', '700'] });
 const ubuntuMono = Ubuntu_Mono({
@@ -17,8 +18,11 @@ export default function Home() {
   const [query, setQuery] = useState('');
   const [translation, setTranslation] = useState('');
   const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function runQuery() {
+    if (!query) return;
+
     const options = {
       method: 'POST',
       headers: {
@@ -27,10 +31,13 @@ export default function Home() {
       body: JSON.stringify(query),
     };
 
+    setTranslation('');
+    setLoading(true);
     const res = await fetch('/api/translate', options);
     const data = await res.json();
 
     setTranslation(data.sql);
+    setLoading(false);
   }
 
   function copy() {
@@ -61,7 +68,7 @@ export default function Home() {
           onChange={e => setQuery(e.target.value)}
           className={styles.input}
           style={inter.style}
-          placeholder='Find out the third last character of the name of the student with the 5th highest marks.'
+          placeholder='e.g - Find out the third last character of the name of the student with the 5th highest marks.'
         />
 
         <button
@@ -73,6 +80,14 @@ export default function Home() {
         </button>
 
         <div className={styles.translation} style={ubuntuMono.style}>
+          {loading && (
+            <ScaleLoader
+              color='#66347f'
+              loading={loading}
+              aria-label='Loading Spinner'
+              size={120}
+            />
+          )}
           <p>{translation}</p>
 
           <button className={styles.copyBtn} onClick={copy}>
@@ -90,7 +105,7 @@ export default function Home() {
           target='_blank'
         >
           Star this project on Github
-          <Image src={githubIcon} width={36} />
+          <Image src={githubIcon} width={36} alt='github' />
         </a>
 
         <footer>
