@@ -62,13 +62,30 @@
   left: 8px;
 }
 
-.main footer {
-  margin-top: auto;
-  background-color: #66347f;
-  color: white;
+.main .star {
+  background-color: #66347f40;
+  color: #66347f;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  width: 350px;
+  margin: 0 auto;
   padding: 8px;
-  text-align: center;
-  font-size: 14px;
+  gap: 10px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  margin-top: 20px;
+}
+
+.main footer {
+  margin: auto 0 -16px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 @media screen and (max-width: 600px) {
