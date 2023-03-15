@@ -114,7 +114,7 @@ export default function Home() {
 
         <a
           className={styles.star}
-          href='https://heyyayesh.github.com/sql-translator'
+          href='https://github.com/heyyayesh/english-to-sql'
           target='_blank'
         >
           Star this project on Github
