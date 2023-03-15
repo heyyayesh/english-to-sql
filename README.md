@@ -1,6 +1,6 @@
 # English to SQL Translator App
 
-**Live Site** - [English-to-Sql]()
+**Live Site** - [English-to-Sql](https://english-to-sql-translator.vercel.app/)
 
 This web application allows you to easily translate plain English statements into SQL syntax using OpenAI's **text-davinci-003** natural language processing model. The app has been built using Next.js, a popular React-based framework for building server-side rendered applications.
 
