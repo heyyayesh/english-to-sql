@@ -118,7 +118,7 @@ export default function Home() {
           target='_blank'
         >
           Star this project on Github
-          <Image src={githubIcon} width={36} alt='github' />
+          <Image src={githubIcon} width={32} alt='github' />
         </a>
 
         <footer>
