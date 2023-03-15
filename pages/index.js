@@ -1,13 +1,18 @@
 import Head from 'next/head';
-// import { Inter } from 'next/font/google';
+import { Inter, Ubuntu_Mono } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
 import { useState } from 'react';
 
-// const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], weight: ['400', '700'] });
+const ubuntuMono = Ubuntu_Mono({
+  subsets: ['latin'],
+  weight: '400',
+});
 
 export default function Home() {
   const [query, setQuery] = useState('');
-  const [response, setResponse] = useState('');
+  const [translation, setTranslation] = useState('');
+  const [copied, setCopied] = useState(false);
 
   async function runQuery() {
     const options = {
@@ -21,7 +26,19 @@ export default function Home() {
     const res = await fetch('/api/translate', options);
     const data = await res.json();
 
-    setResponse(data.sql);
+    setTranslation(data.sql);
+  }
+
+  function copy() {
+    if (!translation) return;
+    setCopied(true);
+    navigator.clipboard.writeText(translation);
+    setTimeout(() => setCopied(false), 3000);
+  }
+
+  function clear() {
+    setQuery('');
+    setTranslation('');
   }
 
   return (
@@ -32,10 +49,43 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className={styles.main}>
-        <input value={query} onChange={e => setQuery(e.target.value)} />
-        <p>{response || 'Translating...'}</p>
-        <button onClick={runQuery}>Run Query</button>
+      <main className={styles.main} style={inter.style}>
+        <h1>Translate Human Language Into SQL</h1>
+
+        <textarea
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          className={styles.input}
+          style={inter.style}
+          placeholder='Find out the third last character of the name of the student with the 5th highest marks.'
+        />
+
+        <button
+          onClick={runQuery}
+          className={styles.translateBtn}
+          style={inter.style}
+        >
+          Translate
+        </button>
+
+        <div className={styles.translation} style={ubuntuMono.style}>
+          <p>{translation}</p>
+
+          <button className={styles.copyBtn} onClick={copy}>
+            {copied ? 'Copied' : 'Copy'}
+          </button>
+
+          <button className={styles.clearBtn} onClick={clear}>
+            Clear
+          </button>
+        </div>
+
+        <footer>
+          &#169; reserved 2023,{' '}
+          <a href='https://www.github.com/heyyayesh' target='_blank'>
+            @heyyayesh
+          </a>
+        </footer>
       </main>
     </>
   );
