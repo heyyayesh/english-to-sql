@@ -23,5 +23,13 @@ export default async function handler(req, res) {
 
   const data = await response.json();
 
+  if (
+    data.error &&
+    data.error.message ===
+      'You exceeded your current quota, please check your plan and billing details.'
+  ) {
+    return res.status(402).json({ error: data.error.message });
+  }
+
   res.status(200).json({ sql: data.choices[0].text.trim() });
 }
